@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer utilities {
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 152 80% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 152 80% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 152 80% 10%;
+
+    --primary: 152 84% 39%;
+    --primary-foreground: 152 25% 96%;
+
+    --secondary: 152 33% 96%;
+    --secondary-foreground: 152 84% 39%;
+
+    --muted: 152 33% 96%;
+    --muted-foreground: 152 20% 30%;
+
+    --accent: 152 33% 25%;
+    --accent-foreground: 152 84% 39%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 152 33% 90%;
+    --input: 152 33% 90%;
+    --ring: 152 84% 39%;
+
+    --radius: 0.5rem;
+
+    --chart-1: 152 76% 40%;
+    --chart-2: 152 58% 30%;
+    --chart-3: 152 40% 20%;
+    --chart-4: 152 74% 50%;
+    --chart-5: 152 87% 60%;
+  }
+
+  .dark {
+    --background: 152 70% 5%;
+    --foreground: 152 25% 96%;
+    --card: 152 70% 5%;
+    --card-foreground: 152 25% 96%;
+    --popover: 152 70% 5%;
+    --popover-foreground: 152 25% 96%;
+
+    --primary: 152 84% 39%;
+    --primary-foreground: 152 25% 96%;
+
+    --secondary: 152 33% 15%;
+    --secondary-foreground: 152 25% 96%;
+
+    --muted: 152 33% 17.5%;
+    --muted-foreground: 152 20% 65%;
+
+    --accent: 152 33% 22%;
+    --accent-foreground: 152 25% 96%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 152 33% 17.5%;
+    --input: 152 33% 17.5%;
+    --ring: 152 84% 39%;
+
+    --chart-1: 152 70% 40%;
+    --chart-2: 152 60% 30%;
+    --chart-3: 152 80% 55%;
+    --chart-4: 152 65% 60%;
+    --chart-5: 152 75% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  h1 {
+    @apply text-4xl md:text-6xl xl:text-7xl font-bold;
+  }
+
+  h2 {
+    @apply text-xl lg:text-3xl font-medium;
+  }
+
+  h3 {
+    @apply text-2xl lg:text-4xl font-medium;
+  }
+
+  a {
+    @apply hover:cursor-pointer;
+  }
+
+  button {
+    @apply hover:cursor-pointer bg-emerald-600 hover:bg-emerald-700;
+  }
+
+  @keyframes gradient-x {
+    0%,
+    100% {
+      background-size: 200% 100%;
+      background-position: left center;
+    }
+    50% {
+      background-size: 200% 100%;
+      background-position: right center;
+    }
+  }
+
+  .animate-gradient-x {
+    animation: gradient-x 3s ease infinite;
+  }
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}

@@ -1,0 +1,50 @@
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { getSummaries } from "@/lib/summaries";
+import Link from "next/link";
+import BgGradient from "@/components/common/bg-gradient";
+import SummaryCard from "@/components/summaries/summary_card";
+import EmptySummaryState from "@/components/summaries/empty-summary-state";
+
+export default async function DashboardPage() {
+  const uploadLimit = 5;
+  const user = await currentUser();
+  const userId = user?.id;
+  if (!userId) return redirect("/sign-in");
+  const summaries = await getSummaries(userId);
+  return (
+    <main className="min-h-screen">
+      <BgGradient />
+      <div className="container mx-auto flex flex-col gap-4">
+        <div className="px-2 py-12 sm:py-24">
+          <div className="flex gap-4 mb-8 justify-between">
+            <div className="flex flex-col gap-2">
+              <h1 className="text-4xl font-bold text-gray-900">Your Summaries</h1>
+              <p className="text-gray-600">Transform your PDFs into structured and concise summaries</p>
+            </div>
+            <Button className="bg-emerald-600 hover:scale-105 hover:bg-emerald-500 transition-all duration-300">
+              <Link href="/upload" className="flex items-center text-white">
+                <Plus className="w-5 h-5 mr-2" />
+                <p>New Summary</p>
+              </Link>
+            </Button>
+          </div>
+          {summaries.length === 0 ? 
+            (<EmptySummaryState />) : 
+            (<div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 sm:px-0">
+                {summaries.map((summary, index) => (
+                  <SummaryCard 
+                    key={index} 
+                    summary={summary} 
+                  />
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </main>
+  );
+}
